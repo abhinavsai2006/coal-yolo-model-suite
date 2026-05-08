@@ -1,28 +1,18 @@
 # Generated artifacts and large binary outputs
 **/__pycache__/
-**/runs/
-**/coal_classification_runs/
-**/reports/
-**/report_figures/
-**/evaluation_*/
-**/comprehensive_evaluation/
-**/yolov10_diversified/
-**/share_package_*/
-*.pt
-*.pth
-*.onnx
-*.engine
 *.zip
-*.pdf
-*.png
 *.jpg
 *.jpeg
 *.gif
 *.bmp
 *.tif
 *.tiff
-*.csv
-*.json
 *.mp4
 *.avi
 *.mov
+# Dataset folders
+**/dataset/
+**/data/
+**/datasets/
+**/images/
+**/labels/

@@ -1,304 +1,149 @@
-# Coal YOLO Model Suite
+<div align="center">
 
-Industry-grade, code-only monorepo for coal image classification research and production-oriented workflows across YOLOv8, YOLOv10, YOLOv11, and a YOLOv12-style experimental implementation.
+# 🏭 Coal Classification AI Model Suite 🏭
 
-This repository is structured for reproducibility, portability, and clean version control hygiene.
+**A comprehensive, monorepo suite of advanced YOLO (You Only Look Once) deep learning architectures dedicated to the highly accurate classification of distinct coal deformation states for mining safety and geological analysis.**
 
-## Executive Summary
+[![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Ultralytics](https://img.shields.io/badge/YOLO-Ultralytics-1C1C1C?style=for-the-badge&logo=yolo&logoColor=white)](https://ultralytics.com/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![JSON](https://img.shields.io/badge/JSON-Metadata-000000?style=for-the-badge&logo=json&logoColor=white)](https://json.org)
+[![CSV](https://img.shields.io/badge/CSV-Metrics-43B02A?style=for-the-badge&logo=microsoftexcel&logoColor=white)](https://en.wikipedia.org/wiki/Comma-separated_values)
+[![ONNX](https://img.shields.io/badge/ONNX-Export-005CED?style=for-the-badge&logo=onnx&logoColor=white)](https://onnx.ai/)
 
-Coal YOLO Model Suite consolidates multiple model generations and training strategies into a single professional workspace:
-
-- Baseline and advanced classification pipelines
-- Dataset preparation and metadata-driven configuration
-- Evaluation and reporting utilities
-- Hybrid-model experimentation for YOLOv11
-- Code-only packaging suitable for GitHub sharing and collaboration
-
-## Key Highlights
-
-- Multi-version model stack: YOLOv8, YOLOv10, YOLOv11, and YOLOv12-style experimentation
-- Curated source control policy: excludes heavy artifacts and sensitive bulk data
-- Unified setup: root-level `requirements.txt` plus project-specific requirements
-- Reproducible data workflow with documented dataset source and ingestion guidance
-- Clear module boundaries for training, inference, evaluation, and utilities
-
-## Repository Scope
-
-Included projects:
-- `YOLOv8_Coal_Classification_Project`
-- `YOLOv10_Coal_Classification_Project`
-- `YOLOv11_Coal_Classification_Project`
-- `Yolov12`
-
-Excluded artifacts by design:
-- raw and split image datasets
-- screenshots and sample image dumps
-- trained checkpoints and binary model outputs (`*.pt`, `*.pth`, `*.onnx`, `*.engine`)
-- generated reports and visual outputs (`*.png`, `*.pdf`, `*.csv`, `*.json`)
-- run outputs and caches (`runs/`, `__pycache__/`, and related folders)
-
-## Artifact Policy: What These Files Are
-
-This repository follows a strict code-first policy. The following categories are excluded to keep the project portable, lightweight, and reproducible.
-
-### 1) Model checkpoints (`*.pt`, `*.pth`, `*.onnx`, `*.engine`)
-
-What they are:
-- Binary model weights produced during or after training.
-- Framework-specific exports (PyTorch, ONNX, TensorRT).
-
-Why excluded:
-- Very large file sizes and rapid growth across experiments.
-- Frequent retraining makes checkpoints volatile.
-- Better managed in model registries or release assets, not source history.
-
-### 2) Generated charts and reports (`*.png`, `*.pdf`, `*.csv`, `*.json`)
-
-What they are:
-- Derived experiment outputs such as confusion matrices, metric dumps, and PDF reports.
-- Post-processing artifacts generated from training/evaluation runs.
-
-Why excluded:
-- Reproducible from source scripts and raw run data.
-- Easily become stale when code or data is updated.
-- Can overwhelm repository history and reduce review quality.
-
-### 3) Run outputs (`runs/`, temporary experiment folders, caches)
-
-What they are:
-- Auto-generated directories containing logs, intermediate outputs, and per-run diagnostics.
-- Local cache artifacts produced by Python tooling.
-
-Why excluded:
-- Machine-specific and non-deterministic folder contents.
-- Not required to understand, build, or execute project logic.
-- Keeping them out improves CI reliability and clone speed.
-
-## Dataset Information
-
-Primary dataset source:
-- https://www.scidb.cn/en/detail?dataSetId=5654e40ae6d14ade84bac79cb0753852&version=V1
-
-Referenced archive groups:
-- `01.Non-destructive coal.zip`
-- `02.Destructive coal.zip`
-- `03.Strongly destructive coal.zip`
-- `04.Pulverized coal.zip`
-- `05.Fully pulverized coal.zip`
-
-Detailed data handling guidance is available in `DATASET.md`.
-
-## Coal Class Taxonomy
-
-The project targets six operational classes used across the training and evaluation pipelines:
-
-- `non_destructive_coal`:
-Coal samples without visible destructive behavior or severe fragmentation.
-
-- `destructive_coal`:
-Coal samples exhibiting damage patterns consistent with destructive breakage.
-
-- `strongly_destructive_coal`:
-More severe destructive morphology than the standard destructive class.
-
-- `pulverized_coal`:
-Fine-grained coal material with clear pulverization characteristics.
-
-- `fully_pulverized_coal`:
-Highly pulverized state, typically with minimal coarse structure.
-
-- `not_coal` or `non_coal` (project-dependent naming):
-Negative class for non-coal material, used to improve classifier robustness.
-
-Note:
-- Some subprojects use `not_coal` while others use `non_coal`. Align class labels in YAML and scripts before cross-project benchmarking.
-
-## Model Architecture Overview
-
-This suite is intentionally multi-architecture to support benchmarking, ablation, and practical deployment trade-offs.
-
-### YOLOv8 track
-- Ultralytics classification backbone and training pipeline.
-- Strong baseline for rapid iteration and metric comparison.
-
-### YOLOv10 track
-- Diversified training strategy focused on robust class separation.
-- Includes production-oriented classifier entry points.
-
-### YOLOv11 track
-- Standard training path plus advanced branches:
-attention-alignment (`yolo11_a2mada`) and hybrid modeling (`yolo11_hybridmodel`).
-- Designed for higher-accuracy exploration with modular training and inference scripts.
-
-### Yolov12 experimental track
-- Lightweight custom implementation for controlled experimentation.
-- Useful for architecture prototyping and educational analysis.
-
-Research framing:
-- The repository is structured to compare model generations under a shared domain problem (coal-type classification), while keeping experiment code isolated per model family.
-
-## Project Architecture
-
-```text
-coal-yolo-model-suite/
-|- README.md
-|- DATASET.md
-|- requirements.txt
-|- YOLOv8_Coal_Classification_Project/
-|  |- scripts/
-|  |- data/
-|  |- model/
-|  |- requirements.txt
-|- YOLOv10_Coal_Classification_Project/
-|  |- train_diversified_model.py
-|  |- comprehensive_evaluation.py
-|  |- production_classifier.py
-|  |- coal_classification.yaml
-|  |- requirements.txt
-|- YOLOv11_Coal_Classification_Project/
-|  |- train_model.py
-|  |- train_model_regularized.py
-|  |- evaluate_model.py
-|  |- yolo11_a2mada/
-|  |- yolo11_hybridmodel/
-|  |- requirements.txt
-|- Yolov12/
-	|- yolov12_model.py
-	|- train_yolov12.py
-	|- infer_yolov12.py
-	|- organize_yolo_dataset.py
-```
-
-## Module-Level Details
-
-### YOLOv8_Coal_Classification_Project
-Primary purpose:
-- Baseline and extended YOLOv8 classification workflow with preparation, training, inference, and utility scripts.
-
-Important files:
-- `scripts/train_coal_classifier.py`
-- `scripts/evaluate_model.py`
-- `scripts/prepare_dataset.py`
-- `data/balanced_data.yaml`
-
-### YOLOv10_Coal_Classification_Project
-Primary purpose:
-- Diversified training and evaluation workflow with production classification entry points.
-
-Important files:
-- `train_diversified_model.py`
-- `comprehensive_evaluation.py`
-- `production_classifier.py`
-- `coal_classification.yaml`
-
-### YOLOv11_Coal_Classification_Project
-Primary purpose:
-- Standard training/evaluation plus advanced hybrid and attention-alignment experiments.
-
-Important files:
-- `train_model.py`
-- `train_model_regularized.py`
-- `evaluate_model.py`
-- `evaluate_all_metrics.py`
-
-Advanced submodules:
-- `yolo11_a2mada/` (attention alignment model variant)
-- `yolo11_hybridmodel/` (hybrid architecture, ensemble training, inference, utilities)
-
-### Yolov12
-Primary purpose:
-- Experimental lightweight YOLOv12-like model stack for custom training and inference flows.
-
-Important files:
-- `yolov12_model.py`
-- `train_yolov12.py`
-- `infer_yolov12.py`
-- `organize_yolo_dataset.py`
-
-## Installation
-
-### Option 1: Unified root environment (recommended)
-
-```bash
-git clone https://github.com/abhinavsai2006/coal-yolo-model-suite.git
-cd coal-yolo-model-suite
-python -m venv .venv
-# PowerShell
-.venv\Scripts\Activate.ps1
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-### Option 2: Per-project environment
-
-```bash
-cd YOLOv11_Coal_Classification_Project
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
-
-## Usage Workflows
-
-### YOLOv11 baseline example
-
-```bash
-cd YOLOv11_Coal_Classification_Project
-python train_model.py
-python evaluate_model.py
-```
-
-### YOLOv10 diversified pipeline example
-
-```bash
-cd YOLOv10_Coal_Classification_Project
-python train_diversified_model.py
-python comprehensive_evaluation.py
-```
-
-### YOLOv8 baseline training example
-
-```bash
-cd YOLOv8_Coal_Classification_Project
-python scripts/train_coal_classifier.py
-python scripts/evaluate_model.py
-```
-
-### Yolov12 experiment example
-
-```bash
-cd Yolov12
-python train_yolov12.py
-python infer_yolov12.py path/to/image.jpg
-```
-
-## Data and Reproducibility Policy
-
-- Dataset images are intentionally excluded from source control.
-- Download dataset archives from SciDB using the documented URL.
-- Keep extracted data in local, ignored paths.
-- Update YAML/data paths to match your machine and environment.
-- Commit only source code, configuration templates, and lightweight documentation.
-
-## Dependency Strategy
-
-- Root `requirements.txt` provides a consolidated dependency baseline.
-- Project-level `requirements.txt` files preserve module-specific constraints.
-- For production work, freeze exact versions after environment validation.
-
-## Quality and Maintenance Guidance
-
-- Use one experiment directory per run outside tracked source paths.
-- Store generated metrics and charts in ignored output directories.
-- Keep training scripts deterministic where possible (seed control and fixed splits).
-- Document any architecture or hyperparameter changes in project-level notes.
-
-## License and Attribution
-
-- Existing project-level licenses are preserved where provided.
-- Dataset ownership and terms remain with the source provider.
-- Ensure compliance with all upstream model and dataset licenses before redistribution.
+</div>
 
 ---
 
-Built for professional coal classification research, reproducible experimentation, and clean deployment handoff.
+## 📖 Executive Summary
+This repository houses the entire evolutionary pipeline of advanced deep-learning vision models trained on microscopic and macroscopic geological samples of coal structures. The suite encompasses experiments across **YOLOv8**, **YOLOv10**, **YOLOv11**, and prototype **YOLOv12**, systematically comparing structural prediction metrics (Precision, Recall, mAP).
+
+As a direct integration of both **code and heavy artifacts**, this repository tracks complete reproducibility pipelines including model weights (`*.pt`, `*.onnx`), evaluation metrics (`*.csv`, `*.json`), and generated analytical charts (`*.png`, `*.pdf`)—meaning an engineer can clone, load a tensor graph, and infer instantly without secondary artifact stores. 
+
+---
+
+## 🗃️ Coal Taxonomy & Dataset Schema
+The core of the models revolves around distinguishing six highly specific geological phenomena. Understanding the states of destructive coal is critical for predicting mining hazards such as gas outbursts. 
+
+| Icon | Classification Category | Description | Data Composition / Visual Features |
+|:---:|:---|:---|:---|
+| 🪨 | **01. Non-destructive coal** | Native coal structure with primary porosity preserved. | Intact banding, smooth fracture surfaces. |
+| 🏚️ | **02. Destructive coal** | Initial fracturing observed under tectonic stress. | Mild fragmentation, visible micro-fissures. |
+| 💥 | **03. Strongly destructive coal** | Highly fractured structure with distinct mylonitic zones. | Widespread fracture networks, loose aggregates. |
+| 🌫️ | **04. Pulverized coal**| Coal crushed to a coarse powder state. | Granular texture, lack of cohesive macro-structure. |
+| 💨 | **05. Fully pulverized coal** | Complete structural breakdown into fine dust/powder. | Homogenous fine particulate mass, high surface area. |
+| 🚫 | **Not coal** | Background noise, non-coal geological formations (shale/sandstone) or equipment. | Tool marks, extraneous minerals, metallic background. |
+
+---
+
+## ⚙️ Data Preprocessing Pipeline 
+In order to handle varying ambient illumination, scale, and noise from the geological lab equipment, the pipeline incorporates the following steps before hitting the Neural Network:
+
+1. **Dimensional Normalization**: Images are uniformly scaled to `[224x224]` or `[640x640]` depending on the model tier to conserve GPU memory while retaining granular structural data.
+2. **Channel Normalization**: Z-score normalization utilizing ImageNet `mean` and `standard deviation` arrays to stabilize gradient descent.
+3. **Augmentation Injection (A2MADA)**: Heavily utilized in the `YOLOv11` branches, generating synthetic orientations (rotate, flip) and lighting variants (hsv_s, hsv_v) to mimic different microscopic lighting environments.
+4. **Data Splitting**: Strict `80/20` Train/Validation splits defined in `coal_*.yaml` structures directly integrated via PyTorch DataLoaders.
+
+---
+
+## 🧠 Model Architectures & Evolution
+
+This project evaluates the timeline of YOLO's classification capabilities, capitalizing on architectural leaps from Ultralytics and community forks:
+
+### 1️⃣ YOLOv8 (The Baseline)
+- **Architecture Base**: CSPDarknet53 backbone with an anchor-free detection/classification head.
+- **Focus**: Establishing baselines for mAP50-95 in coal fragmentation.
+- **Artifacts**: Find baseline `yolo11n.pt` and `inference_results.csv` within the `YOLOv8_Coal_Classification_Project` directory.
+
+### 2️⃣ YOLOv10 (Diversified Focus)
+- **Architecture Base**: Introduces NMS-free training via dual assignments and extensive focus on reducing computational overhead during inference.
+- **Focus**: Deployments on constrained Edge Devices (production classifiers).
+- **Artifacts**: Weights stored in `/yolov10_diversified/` alongside evaluation pipelines.
+
+### 3️⃣ YOLOv11 (A2MADA / Hybrid Models)
+- **Architecture Base**: Enhanced feature extraction networks (C3k2 blocks and SPPF) bringing parameter efficiency. 
+- **Focus**: The pinnacle of the project's accuracy. Utilizing complex hyperparameter regularization (`train_model_regularized.py`) to prevent overfitting on the minor variations between "Pulverized" vs "Fully pulverized".
+- **Artifacts**: Contains highly detailed `report_figures/` and robust `.pt` exports. See `report_summary.md`.
+
+### 4️⃣ YOLOv12 (Prototype / Experimental)
+- **Architecture Base**: Implementing the bleeding-edge components of the YOLO trajectory.
+- **Focus**: Evaluating if newer blocks yield better sub-class feature differentiation on geological materials.
+- **Artifacts**: Standalone `yolov12_coal.pth` standard PyTorch tensor files.
+
+---
+
+## 📊 Artifacts & Model Checkpoints Included
+
+By policy, this repository **tracks** the generated state artifacts to ensure an instantly verifiable development lifecycle. The following data files are committed alongside the code:
+
+*   **Model Weights**: `*.pt` (PyTorch state dictionaries), `*.pth`, `*.onnx` (Open Neural Network Exchange), `*.engine` (TensorRT optimized formats).
+*   **Run Outputs (`runs/`)**: Complete Ultralytics output directories containing `args.yaml`, loss visualizations, and confusion matrices.
+*   **Generated Dashboards**: `*.png` visualizations of the loss functions over epochs, and PR (Precision-Recall) curves.
+*   **Detailed Analytics**: `.csv` aggregations of raw predictions versus ground truth, and comprehensive `.pdf` project reports generated post-evaluation.
+
+---
+
+## 🏗️ Project Structure
+```text
+coal-yolo-model-suite/
+│
+├── DATASET.md                     # Central instructions on dataset acquisition/handling
+├── requirements.txt               # Global PyPi Dependencies
+│
+├── YOLOv8_Coal_Classification_Project/   # Baseline implementations
+│   ├── coal_classification_metrics.csv
+│   └── inference_results_not_coal.csv
+│
+├── YOLOv10_Coal_Classification_Project/  # Edge Inference implementations
+│   ├── production_classifier.py
+│   ├── train_diversified_model.py
+│   ├── comprehensive_evaluation/         # Output reports (.json, .csv, .png)
+│   └── yolov10_diversified/              # Model Checkpoints (*.pt)
+│
+├── YOLOv11_Coal_Classification_Project/  # Heavy Regularization & Best Accuracy
+│   ├── train_model_regularized.py
+│   ├── generate_detailed_report.py
+│   ├── report_figures/                   # Visual output artifacts
+│   ├── runs/                             # Ultralytics train/val logs and plots
+│   ├── yolo11_a2mada/                    # Experimental Weights
+│   └── yolo11_hybridmodel/               # Production Weights (*.pt)
+│
+└── Yolov12/                              # Next-generation Architectures
+    ├── train_yolov12.py
+    └── yolov12_coal.pth                  # Bare PyTorch weights for YOLOv12 config
+```
+
+---
+
+## 🚀 Quick Start & Inference
+
+**1. Clone the repository natively (including weights):**
+```bash
+git clone https://github.com/abhinavsai2006/coal-yolo-model-suite.git
+cd coal-yolo-model-suite
+```
+
+**2. Hydrate the environment:**
+*(We recommend Conda/Miniconda to isolate PyTorch GPU binaries)*
+```bash
+pip install -r requirements.txt
+```
+
+**3. Run an Inference with YOLOv11 (Best Model):**
+```python
+from ultralytics import YOLO
+
+# Load the tracked weights directly from the repo
+model = YOLO('YOLOv11_Coal_Classification_Project/yolo11_hybridmodel/weights/best.pt')
+
+# Infer on a new lab image
+results = model.predict('path/to/some_microscope_image.jpg')
+
+# Process results
+print(f"Predicted class: {results[0].names[results[0].probs.top1]}")
+```
+
+## 📜 License
+Dual-licensed inherently. Scripts bound under `LICENSE` provided. Checkpoint `.pt` licenses inherit the AGPL-3.0 strictly derived from Ultralytics LLC standards unless exclusively retrained entirely from scratch without pre-trained backbones.
