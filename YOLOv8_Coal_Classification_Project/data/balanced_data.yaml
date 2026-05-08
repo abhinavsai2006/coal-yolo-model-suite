@@ -1,0 +1,4 @@
+train: ../data/train_balanced
+val: ../data/val
+nc: 6
+names: ["destructive_coal","fully_pulverized_coal","non_destructive_coal","pulverized_coal","strongly_destructive_coal","not_coal"]

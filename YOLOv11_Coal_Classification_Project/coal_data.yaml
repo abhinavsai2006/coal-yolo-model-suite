@@ -1,0 +1,37 @@
+# YOLOv11 Coal Classification Dataset Configuration# YOLOv11 Coal Classification Dataset Configuration# YOLO Coal Classification Dataset YAML
+
+path: ./data
+
+train: trainpath: ./datatrain: data/train
+
+val: val
+
+test: testtrain: trainval: data/test
+
+
+
+# Number of classesval: valnc: 5
+
+nc: 6
+
+test: testnames: ["destructive_coal", "fully_pulverized_coal", "non_destructive_coal", "pulverized_coal", "strongly_destructive_coal"]
+
+# Class names
+
+names: 
+
+  0: destructive_coal# Number of classes
+
+  1: fully_pulverized_coalnc: 5
+
+  2: non_destructive_coal
+
+  3: not_coal# Class names
+
+  4: pulverized_coalnames: 
+
+  5: strongly_destructive_coal  0: destructive_coal
+  1: fully_pulverized_coal
+  2: non_destructive_coal
+  3: pulverized_coal
+  4: strongly_destructive_coal

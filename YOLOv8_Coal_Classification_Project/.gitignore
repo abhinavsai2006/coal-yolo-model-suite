@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large model files (> 100MB)
+*.pt
+yolo11n.pt
+yolov8m-cls.pt
+yolov8n-cls.pt
+yolov8s-cls.pt
+model/*.pt
+
+# Dataset folders (large image sets)
+data/train/
+data/val/
+data/train_balanced/
+data/train_balanced_split/
+
+# Runs and outputs
+runs/
+coal_classification_runs/
+
+# Large CSV files
+*.csv
+!requirements.txt
+
+# Cache
+.cache/
+*.cache

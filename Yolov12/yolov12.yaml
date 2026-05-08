@@ -1,0 +1,15 @@
+# YOLOv12 model config (PyTorch, YOLOv8-style for demonstration)
+# You can adjust depth, width, and other params as needed
+
+model:
+  type: YOLOv12
+  backbone:
+    type: CSPDarknet
+    depth_multiple: 0.33
+    width_multiple: 0.50
+  head:
+    type: YOLOv8Head
+    num_classes: 6
+    anchors: [[10,13, 16,30, 33,23], [30,61, 62,45, 59,119], [116,90, 156,198, 373,326]]
+    stride: [8, 16, 32]
+input_size: 640

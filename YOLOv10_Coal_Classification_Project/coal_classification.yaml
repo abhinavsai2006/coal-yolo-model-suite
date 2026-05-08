@@ -1,0 +1,12 @@
+names:
+- destructive_coal
+- fully_pulverized_coal
+- non_coal
+- non_destructive_coal
+- pulverized_coal
+- strongly_destructive_coal
+nc: 6
+path: E:\Yolo\YOLOv10_Coal_Classification_Project\dataset
+test: test
+train: train
+val: val
